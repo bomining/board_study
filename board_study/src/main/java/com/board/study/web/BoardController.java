@@ -11,6 +11,9 @@ import com.board.study.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 
+// 목록, 등록, 상세 화면 맵핑, 등록 액션 메소드 생성
+// 목록에는 페이징 처리를 위한 파라미터를 받음
+
 @RequiredArgsConstructor // 초기화 되지 않은 모든 final 필드, @NonNull 로 마크되어 있는 모든 필드들에 대한 생성자를 자동 생성
 @Controller
 public class BoardController {

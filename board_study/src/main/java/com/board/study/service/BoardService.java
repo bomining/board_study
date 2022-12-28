@@ -19,6 +19,10 @@ import lombok.RequiredArgsConstructor;
 // 파일 및 페이징 처리 추가 완료
 // 현재 간단한 CRUD 메소드만 작성
 
+// 2022-12-28
+// 기존에 작성했던 서비스에서 페이징 처리 설정 추가
+// PageRequest 객체로 간단하게 페이징 처리
+
 @RequiredArgsConstructor // 초기화 되지 않은 모든 final 필드, @NonNull 로 마크되어 있는 모든 필드들에 대한 생성자를 자동 생성
 @Service
 public class BoardService {
