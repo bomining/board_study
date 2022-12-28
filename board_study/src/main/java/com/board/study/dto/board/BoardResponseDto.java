@@ -9,7 +9,7 @@ import lombok.Getter;
 // 게시물 목록, 상세 조회에 필요한 필드를 정의
 // Board Entity 를 BoardResponseDto 에 맞게 변환하는 생성자 생성
 
-@Getter
+@Getter // 클래스 내 모든 필드의 Getter 메소드를 자동 생성
 public class BoardResponseDto {
 	private Long id;
 	private String title;
