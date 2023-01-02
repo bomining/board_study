@@ -61,6 +61,7 @@ public class BoardService {
 	}
 	
 	public BoardResponseDto findById(Long id) {
+		boardRepository.updateBoardReadCntInc(id);
 		return new BoardResponseDto(boardRepository.findById(id).get());
 	}
 	
@@ -68,11 +69,13 @@ public class BoardService {
 		return boardRepository.updateBoard(boardRequestDto);
 	}
 	
-	public int updateBoardReadCntInc(Long id) {
-		return ((BoardService) boardRepository).updateBoardReadCntInc(id);
-	}
-	
 	public void deleteById(Long id) {
 		boardRepository.deleteById(id);
+	}
+	
+//	2023-01-02 deleteAll 추가, 상세 화면에서 수정, 삭제, 목록에서 삭제 서비스 구현
+	
+	public void deleteAll(Long[] deleteId) {
+		boardRepository.deleteBoard(deleteId);
 	}
 }

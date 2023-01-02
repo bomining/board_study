@@ -62,4 +62,39 @@ public class BoardController {
 		}
 		return "redirect:/board/list";
 	}
+	
+//	2023-01-02 상세 화면 수정, 상세 화면 내에서 삭제, 목록에서 삭제에 대한 서비스 호출 처리
+	
+	@PostMapping("/board/view/action")
+	public String boardViewAction(Model model, BoardRequestDto boardRequestDto) throws Exception {
+		try {
+			int result = boardService.updateBoard(boardRequestDto);
+			if (result < 1) {
+				throw new Exception("# Exception boardViewAction.");
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return "redirect:/board/list";
+	}
+	
+	@PostMapping("/board/view/delete")
+	public String boardViewDeleteAction(Model model, @RequestParam() Long id) throws Exception {
+		try {
+			boardService.deleteById(id);
+		} catch (Exception e) {  
+			throw new Exception(e.getMessage());
+		}
+		return "redirect:/board/list";
+	}
+	
+	@PostMapping("/board/delete")
+	public String boardDeleteAction(Model model, @RequestParam() Long[] deleteId) throws Exception {
+		try {
+			boardService.deleteAll(deleteId);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+		return "redirect:/board/list";
+	}
 }
