@@ -1,34 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>게시글 목록</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<!-- 		부트스트랩 css 추가 -->
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
-	</head>
-	<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default_layout}">
+	<th:block layout:fragment="content">
 		<div class="container">
 			<h1>게시글 등록</h1>
-			<form action="/board/write/action" method="post">
+			<form id="frm" action="/board/write/action" method="post">
 				<div class="mb-3">
 					<label class="form-label">제목</label>
-					<input type="text" class="form-control" name="title">
+					<input type="text" class="form-control" name="title" required>
 				</div>
 				<div class="mb-3">
 					<label class="form-label">내용</label>
-					<textarea class="form-control" rows="5" name="content"></textarea>
+					<textarea class="form-control" rows="5" name="content" required></textarea>
 				</div>
 				<div class="mb-3">
 					<label class="form-label">작성자</label>
-					<input type="text" class="form-control" name="registerId">
+					<input type="text" class="form-control" name="registerId" required>
 				</div>
 				<button type="button" class="btn btn-success" onclick="javascript:location.href='/board/list'">이전</button>
-				<button type="submit" class="btn btn-primary">등록</button>
+				<button type="button" class="btn btn-primary" onclick="fnSubmit();">등록</button>
 			</form>
 		</div>
-<!-- 		부트스트랩 js, jquery 추가 -->
-		<script src="/js/jquery.min.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
-	</body>
+		<script th:inline="javascript">
+			let frm = $("#frm");
+			
+			function fnSubmit() {
+				$("#frm").submit();
+			}
+			
+			$(function() {
+				frm.validate({
+					messages: {
+						title: {
+							required : "제목을 입력해주세요."
+						},
+						content: {
+							required : "내용을 입력해주세요."
+						},
+						registerId: {
+							required : "작성자 이름을 입력해주세요."
+						}
+					},
+					submitHandler : function (form) {
+						form.submit();
+					}
+				});
+			});
+		</script>
+	</th:block>
 </html>

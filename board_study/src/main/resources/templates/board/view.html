@@ -1,40 +1,59 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>게시글 목록</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<link rel="stylesheet" href="/css/bootstrap.min.css">
-	</head>
-	<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default_layout}">
+	<th:block layout:fragment="content">
 		<div class="container">
 			<h1>게시글 조회</h1>
 			<form id="frm" action="/board/view/action" method="post">
 				<input type="hidden" name="id" th:value="${info.id}">
 				<div class="mb-3">
 					<label class="form-label">제목</label>
-					<input type="text" class="form-control" name="title" th:value="${info.title}">
+					<input type="text" class="form-control" name="title" th:value="${info.title}" required>
 				</div>
 				<div class="mb-3">
 					<label class="form-label">내용</label>
-					<textarea class="form-control" rows="5" name="content" th:text="${info.content}"></textarea>
+					<textarea class="form-control" rows="5" name="content" th:text="${info.content}" required></textarea>
 				</div>
 				<div class="mb-3">
 					<label class="form-label">작성자</label>
-					<input type="text" class="form-control" name="registerId" th:value="${info.registerId}">
+					<input type="text" class="form-control" name="registerId" th:value="${info.registerId}" required>
 				</div>
-				<div class="float-left">
-					<button type="button" class="btn btn-success" onclick="javascript:location.href='/board/list'">이전</button>
-					<button type="submit" class="btn btn-primary">수정</button>
-				</div>
-				<div class="float-right">
-					<button type="button" class="btn btn-danger" th:onclick="fnViewDelete()">삭제</button>
+				<div class="clearfix">
+					<div class="float-left">
+						<button type="button" class="btn btn-success" onclick="javascript:location.href='/board/list'">이전</button>
+						<button type="button" class="btn btn-primary" onclick="fnSubmit();">수정</button>
+					</div>
+					<div class="float-right">
+						<button type="button" class="btn btn-danger" th:onclick="fnViewDelete()">삭제</button>
+					</div>
 				</div>
 			</form>
 		</div>
-		<script src="/js/jquery.min.js"></script>
-		<script src="/js/bootstrap.min.js"></script>
 		<script th:inline="javascript">
+			let frm = $("#frm");
+			
+			function fnSubmit() {
+				$("#frm").submit();
+			}
+			
+			$(function() {
+				frm.validate({
+					messages: {
+						title: {
+							required : "제목을 입력해주세요."
+						},
+						content: {
+							required : "내용을 입력해주세요."
+						},
+						registerId: {
+							required : "작성자 이름을 입력해주세요."
+						}
+					},
+					submitHandler: function (form) {
+						form.submit();
+					}
+				});
+			});
+			
 			function fnViewDelete() {
 				if (confirm("삭제하시겠습니까?")) {
 					let frm = $("#frm");
@@ -43,5 +62,5 @@
 				}
 			}
 		</script>
-	</body>
+	</th:block>
 </html>
