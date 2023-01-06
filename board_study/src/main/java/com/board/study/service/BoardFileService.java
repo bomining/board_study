@@ -45,7 +45,7 @@ public class BoardFileService {
 		
 		MultipartFile mFile;
 		
-		String saveFilePath = "", randomFileName = "";
+		String savaFilePath = "", randomFileName = "";
 		
 		Calendar calendar = Calendar.getInstance();
 		
@@ -70,7 +70,7 @@ public class BoardFileService {
 				
 				String saveFileName = randomFileName + "." + fileExt;
 				
-				saveFilePath = filePath + File.separator + saveFileName;
+				String saveFilePath = filePath + File.separator + saveFileName;
 				
 				File filePyhFolder = new File(filePath);
 			
@@ -97,10 +97,10 @@ public class BoardFileService {
 						_exist = new File(dictFile).isFile();
 				
 						if (!_exist) {
-							saveFilePath = dictFile;
+							savaFilePath = dictFile;
 						}
 					}
-					mFile.transferTo(new File(saveFilePath));
+					mFile.transferTo(new File(savaFilePath));
 				} else {
 //					생성한 파일 객체를 업로드 처리하지 않으면 임시파일에 저장된 파일이 자동적으로 삭제되기 때문에 transferTo(File f) 메소드를 이용하여 업로드 처리
 					mFile.transferTo(saveFile);
